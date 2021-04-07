@@ -1,6 +1,5 @@
-
+#
 ## Configuring PiHole as DNS-over-TLS recursive DNS resolver
-
 
 Using [PiHole](https://pi-hole.net/) is a  popular way to filter our ads, malware, and trackers.  It is easy to install and has excellent UI.  PiHole comes with the built in [dnsmasq](https://en.wikipedia.org/wiki/Dnsmasq) DNS resolver as well as the [lighttpd](https://en.wikipedia.org/wiki/Lighttpd) web server.
 
@@ -12,9 +11,11 @@ However, with the advent of DOT and having mostly Android devices in my home net
 
 Luckily, there are quite a few resources on how to configure it.  Most are generic and required some tinkering.  Some PiHole users are opting out for using a cloudflare DOT/DOH gateway.  So, if you do not want to trust your ISP with collecting your browsing history, why would you trust Cloudflare, which is a for-profit company as well?
 
-After some research I came up with switching from the default lighttpd webserver to nginx and, why not to install a proper DNS server as well?  Switching to UNBOUND is pretty easy.  As a result, I came up with the following design
+After some research I came up with switching from the default lighttpd webserver to nginx and, why not to install a proper DNS server as well?  Switching to UNBOUND is pretty easy.  As a result, final design 
 
 ![image](https://raw.githubusercontent.com/brumka/PiHole-DOT/main/ArchDiagram.png)
+
+I am going to use `YourDNSServer` and, respectively, `YourDNSServerIPaddress` for the FQDN and the IP address of your DNS server
 
 
 ##Installing UNBOUND
@@ -46,7 +47,7 @@ The PiHole's [guide on installing NGINX](https://docs.pi-hole.net/guides/webserv
 
 Next we will follow the example of configuring the DNS-over-TLS gateway using the excellent [Mark Boddington's example](https://github.com/TuxInvader/nginx-dns/blob/master/examples/nginx-dot-to-dns-simple.conf).
 
-Note that you will need to install the NGINX NJS module.  To do that on my Ubuntu 18.04 I had to add NGINX repository to the list of sources first by adding the following lines to  `/etc/apt/sources.list`
+Note that you will need to install the NGINX NJS module.  To do that on my Ubuntu 18.04 I had to add NGINX repository to the list of sources by adding the following lines to  `/etc/apt/sources.list`
 
 ```
 deb http://nginx.org/packages/mainline/ubuntu/ bionic nginx
@@ -59,7 +60,7 @@ $ sudo apt-get install nginx-module-njs
 ```
 <br>
 <br>
-As a result, my `dot.conf` looked like this 
+As a result, my `dot.conf` now looks like this 
 
 ```
 stream {
@@ -92,7 +93,7 @@ stream {
 }
 ```
 <br>
-<br>Added the call to load NJS modules and referenced the dot.conf at the bottom to my current /etc/nginx/nginx.conf
+<br>Added the call to load NJS modules and referenced the `dot.conf` at the bottom of my current `/etc/nginx/nginx.conf`
 
 ```	
 	user  nginx;
@@ -129,7 +130,7 @@ stream {
   
 ```
 <br>
-And the final NGINX `/etc/nginx/conf.d/default.conf` file.  Note the comments explaining redirects, TLS1.2 and H2
+And the final NGINX `/etc/nginx/conf.d/default.conf` file.  Note the comments explaining 302 redirects, TLS1.2, and H2 settings
 
 ```
         server {
