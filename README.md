@@ -61,9 +61,8 @@ deb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx
 $ sudo apt-get install nginx-module-njs
 ```
 <br>
-<br>
 As a result, my dot.conf for NGINX DOT gateway now looks as following 
-
+<br>
 ```
 stream {
     # DNS logging.  This log file will show the DNS requests geting forwarded to UNBOUND
@@ -240,7 +239,7 @@ And the resulting NGINX  ``/etc/nginx/conf.d/default.conf`` file is below.  Note
 Let us start with installing ``kdig`` (enhanced DIG) <br>
 `$ apt-get install knot-dnsutils`
 <br><br>
-Now we can test it
+Now we can test our DOT server by executing the following command
 ```
 $ kdig -d @YourDNSServerIPaddress +tls-ca +tls-host=YourDNSServer www.github.com
 
