@@ -3,7 +3,7 @@
 
 Using [PiHole](https://pi-hole.net/) is a  popular way to filter out ads, malware, and trackers.  It is easy to install and has excellent UI.  PiHole comes with the built in [dnsmasq](https://en.wikipedia.org/wiki/Dnsmasq) DNS resolver as well as the [lighttpd](https://en.wikipedia.org/wiki/Lighttpd) web server.
 
-For quite a few years, PiHole been doing great job for me.  I first installed it, just like many, on RasberryPi 3+ SBC, but later switched to [AtomicPI](https://ameridroid.com/products/atomic-pi) to get a full 1GB NIC and to avoid the imminent failure or RPi's SD card.  AtomicPI comes with the on-board eMMC storage, which is way faster and, despite its small size, still is sufficient for my purpose.  I could now turn on the logging without worrying about file I/O killing the SD card.
+For quite a few years, PiHole been doing great job for me.  I first installed it, just like many, on RasberryPi 3+ SBC, but later switched to [AtomicPI](https://ameridroid.com/products/atomic-pi) to get a full gigabit NIC and to avoid the imminent failure or RPi's SD card.  AtomicPI comes with the on-board eMMC storage, which is way faster and, despite its small size, still is sufficient for my purpose.  I could now turn on the logging without worrying about file I/O killing the SD card.
 
 Over the past few years we start seeing [DNS-over-TLS](https://en.wikipedia.org/wiki/DNS_over_TLS) (aka "DOT") gaining more popularity.  Suffice to say that  Android phones now come with so-called `"secure DNS"` enabled by default, which is a mere DOT.
 
