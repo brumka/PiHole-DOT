@@ -239,7 +239,7 @@ And the resulting NGINX  ``/etc/nginx/conf.d/default.conf`` file is below.  Note
 
 Let us start with installing ``kdig`` (enhanced DIG) <br>
 `$ apt-get install knot-dnsutils`
-<br>
+<br><br>
 Now we can test it
 ```
 $ kdig -d @YourDNSServerIPaddress +tls-ca +tls-host=YourDNSServer www.github.com
