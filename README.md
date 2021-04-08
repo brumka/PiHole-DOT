@@ -39,7 +39,7 @@ github.com.             60      IN      A       140.82.114.3
 ;; WHEN: Wed Apr 07 12:44:59 DST 2021
 ;; MSG SIZE  rcvd: 73
 ```
-Note the port number 5335, it is defined in `/etc/unbound/unbound.conf`.   Note that it also supports DNSSEC!  
+Note the port number 5335, it is defined in `/etc/unbound/unbound.conf`.   Note that your new shiny DNS server also supports DNSSEC!  
 
 
 ##Installing NGINX
