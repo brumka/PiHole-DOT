@@ -15,7 +15,7 @@ Luckily, there are few hints out there on how to configure DOT.  Most notes are 
 
 After some research I decided to switch from the default lighttpd webserver to nginx and, why not to install a proper DNS server as well?  Switching to UNBOUND is easy.  As a result, final design idea could be illustrated as
 
-![image](https://raw.githubusercontent.com/brumka/PiHole-DOT/main/ArchDiagram.png)
+![image](https://raw.githubusercontent.com/brumka/PiHole-DOT/main/Arch_Diagram.png)
 
 Throughout this guide I am going to use `YourDNSServer` and, respectively, `YourDNSServerIPaddress` for the FQDN and the IP address of my DNS server
 
