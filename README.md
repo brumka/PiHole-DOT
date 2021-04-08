@@ -45,7 +45,7 @@ Note the port number 5335, it is defined in `/etc/unbound/unbound.conf`.   Note 
 ##Installing NGINX
 ===============
 
-The PiHole's [guide on installing NGINX](https://docs.pi-hole.net/guides/webserver/nginx/) is pretty straightforward as well.  Note, that for DOT we are going to need a valid TLS certificate.  The obvious side benefit of having a cert would be ability to acces PiHole's UI via secured addess.  I used Les's Encrypt, which is quite simple to get installed using [these instructions](https://letsencrypt.org/getting-started/).
+The PiHole's [guide on installing NGINX](https://docs.pi-hole.net/guides/webserver/nginx/) is pretty straightforward as well.  Note, that for DOT we are going to install a  TLS certificate.  The obvious side benefit of having a cert would be ability to acces PiHole's UI via secured addess.  I used Les's Encrypt, which is quite simple to get installed using [these instructions](https://letsencrypt.org/getting-started/).
 
 Next we are going to follow the example of configuring the DNS-over-TLS gateway using the excellent [Mark Boddington's example](https://github.com/TuxInvader/nginx-dns/blob/master/examples/nginx-dot-to-dns-simple.conf).
 
