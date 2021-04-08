@@ -93,8 +93,8 @@ stream {
     }
 }
 ```
-<br>
-<br>Added the call to load NJS modules and referenced the ``dot.conf`` at the bottom of my current NGINX configuration file ``/etc/nginx/nginx.conf``
+
+Added the call to load NJS modules and referenced the ``dot.conf`` at the bottom of my current NGINX configuration file /etc/nginx/nginx.conf
 
 ```	
 	user  nginx;
