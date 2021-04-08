@@ -23,7 +23,7 @@ Throughout this guide I am going to use `YourDNSServer` and, respectively, `Your
 ##Installing UNBOUND
 ======
 
-There is an easy-to-follow [guide on pihole pages](https://docs.pi-hole.net/guides/dns/unbound/).  Once UNBOUND is installed you can validate it is correctly resolving by running
+There is an easy-to-follow [guide on pihole site](https://docs.pi-hole.net/guides/dns/unbound/).  Once UNBOUND is installed you can validate it is correctly resolving by running
 
 ```
 $ dig @YourDNSServer -P 5335 www.github.com +nocomment
