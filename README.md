@@ -60,9 +60,9 @@ deb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx
 ```
 $ sudo apt-get install nginx-module-njs
 ```
-<br>
+
 As a result, my dot.conf for NGINX DOT gateway now looks as following 
-<br>
+
 ```
 stream {
     # DNS logging.  This log file will show the DNS requests geting forwarded to UNBOUND
@@ -130,8 +130,8 @@ Added the call to load NJS modules and referenced the dot.conf at the bottom of 
 	include /etc/nginx/dns.d/*.conf;  # this is the place to include dot.conf.  Note it has to be outside of the http{} scope
   
 ```
-<br>
-And the resulting NGINX  ``/etc/nginx/conf.d/default.conf`` file is below.  Note the comments explaining few minor tweaks such as 302 redirects, TLS1.2, and H2 settings
+
+And the resulting NGINX  /etc/nginx/conf.d/default.conf file is below.  Note the comments explaining few minor tweaks such as 302 redirects, TLS1.2, and H2 settings
 
 ```
         server {
