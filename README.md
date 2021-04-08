@@ -62,7 +62,7 @@ $ sudo apt-get install nginx-module-njs
 ```
 <br>
 <br>
-As a result, my dot.conf now looks like this 
+As a result, my ```dot.conf``` now looks like this 
 
 ```
 stream {
@@ -95,7 +95,7 @@ stream {
 }
 ```
 <br>
-<br>Added the call to load NJS modules and referenced the `dot.conf` at the bottom of my current `/etc/nginx/nginx.conf`
+<br>Added the call to load NJS modules and referenced the ```dot.conf``` at the bottom of my current ```/etc/nginx/nginx.conf```
 
 ```	
 	user  nginx;
@@ -132,7 +132,7 @@ stream {
   
 ```
 <br>
-And the resulting NGINX `/etc/nginx/conf.d/default.conf` file is below.  Note the comments explaining few minor tweaks such as 302 redirects, TLS1.2, and H2 settings
+And the resulting NGINX ```/etc/nginx/conf.d/default.conf``` file is below.  Note the comments explaining few minor tweaks such as 302 redirects, TLS1.2, and H2 settings
 
 ```
         server {
