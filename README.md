@@ -1,27 +1,29 @@
-#
+# Tutorial
 ## Configuring PiHole as DNS-over-TLS recursive DNS resolver
 
-Using [PiHole](https://pi-hole.net/) is a  popular way to filter our ads, malware, and trackers.  It is easy to install and has excellent UI.  PiHole comes with the built in [dnsmasq](https://en.wikipedia.org/wiki/Dnsmasq) DNS resolver as well as the [lighttpd](https://en.wikipedia.org/wiki/Lighttpd) web server.
+Using [PiHole](https://pi-hole.net/) is a  popular way to filter out ads, malware, and trackers.  It is easy to install and has excellent UI.  PiHole comes with the built in [dnsmasq](https://en.wikipedia.org/wiki/Dnsmasq) DNS resolver as well as the [lighttpd](https://en.wikipedia.org/wiki/Lighttpd) web server.
 
-Over the past few years we start seeing [DNS-over-TLS](https://en.wikipedia.org/wiki/DNS_over_TLS) gaining more popularity.  For example: most of Android phones now come with so-called `secure DNS` enabled by default, which is a mere DOT.
+For quite a few years, PiHole been doing great job for me.  I first installed it, just like many, on RasberryPi 3+ SBC, but later switched to [AtomicPI](https://ameridroid.com/products/atomic-pi) to get a full 1GB NIC and to avoid the imminent failure or RPi's SD card.  AtomicPI comes with the on-board eMMC storage, which is way faster and, despite its small size, still is sufficient for my purpose.  I could now turn on the logging without worrying about file I/O killing the SD card.
 
-For quite a few years, PiHole been doing great job for me.  I first installed it, just like many, on RasberryPi 3+ SBC, but later switched to [AtomicPI](https://ameridroid.com/products/atomic-pi) to get a full 1GB NIC and to avoid RPi SDcard's imminent failure (despite wear-leveling), since AtomicPI comes with the on-board eMMC storag, which is way faster and despite small size still sufficient for my purpose.  I could now turning the logging on without worrying of excessive file I/O killing the SD card.
+Over the past few years we start seeing [DNS-over-TLS](https://en.wikipedia.org/wiki/DNS_over_TLS) (aka "DOT") gaining more popularity.  Suffice to say that  Android phones now come with so-called `"secure DNS"` enabled by default, which is a mere DOT.
 
-However, with the advent of DOT and having mostly Android devices in my home network, I started noticing that PiHole becomes less efficient just due to the fact that my devices were using the default Google's DOT (8.8.8.8).  Thus, the task was to make PiHole relevant again.  To my surprise, PiHole developers refuse to add DOT and DOH functionality.
+With the advent of DOT and having mostly Android devices in my home network, I started noticing that PiHole became not up to its task  due to the fact that my devices were using the default Google's DOT (8.8.8.8).  Thus, the task was to make PiHole relevant again.  To my surprise, PiHole developers refuse to add DOT and DOH functionality.
 
-Luckily, there are quite a few resources on how to configure it.  Most are generic and required some tinkering.  Some PiHole users are opting out for using a cloudflare DOT/DOH gateway.  So, if you do not want to trust your ISP with collecting your browsing history, why would you trust Cloudflare, which is a for-profit company as well?
+Of course, my knee-jerk reaction was to block Google's DNS on my Ubiquiti firewall, but that would be a lame workaround.
 
-After some research I came up with switching from the default lighttpd webserver to nginx and, why not to install a proper DNS server as well?  Switching to UNBOUND is pretty easy.  As a result, final design 
+Luckily, there are few hints out there on how to configure DOT.  Most notes are generic and require tinkering.  Some PiHole users are opting out for using Cloudflare's DOT/DOH gateway.  However, if I do not trust my ISP with collecting browsing history of my family (and guests), why would I trust Cloudflare, which is a for-profit company?
+
+After some research I decided to switch from the default lighttpd webserver to nginx and, why not to install a proper DNS server as well?  Switching to UNBOUND is easy.  As a result, final design idea could be illustrated as
 
 ![image](https://raw.githubusercontent.com/brumka/PiHole-DOT/main/ArchDiagram.png)
 
-I am going to use `YourDNSServer` and, respectively, `YourDNSServerIPaddress` for the FQDN and the IP address of your DNS server
+Throughout this guide I am going to use `YourDNSServer` and, respectively, `YourDNSServerIPaddress` for the FQDN and the IP address of my DNS server
 
 
 ##Installing UNBOUND
 ======
 
-There is an easy to follow [guide on pihole pages](https://docs.pi-hole.net/guides/dns/unbound/).  Once it is installed you can validate it running by either running 
+There is an easy-to-follow [guide on pihole pages](https://docs.pi-hole.net/guides/dns/unbound/).  Once UNBOUND is installed you can validate it is correctly resolving by running
 
 ```
 $ dig @YourDNSServer -P 5335 www.github.com +nocomment
@@ -37,36 +39,36 @@ github.com.             60      IN      A       140.82.114.3
 ;; WHEN: Wed Apr 07 12:44:59 DST 2021
 ;; MSG SIZE  rcvd: 73
 ```
-Note the port number 5335 - it is defined in `/etc/unbound/unbound.conf`.  
+Note the port number 5335, it is defined in `/etc/unbound/unbound.conf`.   Note that it also supports DNSSEC!  
 
 
 ##Installing NGINX
 ===============
 
-The PiHole's [guide on installing NGINX](https://docs.pi-hole.net/guides/webserver/nginx/) is pretty straightforward as well.  Note, that we will need to install a valid TLS certificate.  I used Les's Encrypt, which is quite simple to get installed using [these instructions](https://letsencrypt.org/getting-started/).
+The PiHole's [guide on installing NGINX](https://docs.pi-hole.net/guides/webserver/nginx/) is pretty straightforward as well.  Note, that for DOT we are going to need a valid TLS certificate.  The obvious side benefit of having a cert would be ability to acces PiHole's UI via secured addess.  I used Les's Encrypt, which is quite simple to get installed using [these instructions](https://letsencrypt.org/getting-started/).
 
-Next we will follow the example of configuring the DNS-over-TLS gateway using the excellent [Mark Boddington's example](https://github.com/TuxInvader/nginx-dns/blob/master/examples/nginx-dot-to-dns-simple.conf).
+Next we are going to follow the example of configuring the DNS-over-TLS gateway using the excellent [Mark Boddington's example](https://github.com/TuxInvader/nginx-dns/blob/master/examples/nginx-dot-to-dns-simple.conf).
 
-Note that you will need to install the NGINX NJS module.  To do that on my Ubuntu 18.04 I had to add NGINX repository to the list of sources by adding the following lines to  `/etc/apt/sources.list`
+In order for it to work we have to install the NGINX NJS module.  First in order to install it on my Ubuntu 18.04 I had to add NGINX's repository to the list of sources by adding the following lines to  `/etc/apt/sources.list`
 
 ```
 deb http://nginx.org/packages/mainline/ubuntu/ bionic nginx
 deb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx
 ```
-<br>and only then running 
+<br>and only then running the install 
 
 ```
 $ sudo apt-get install nginx-module-njs
 ```
 <br>
 <br>
-As a result, my `dot.conf` now looks like this 
+As a result, my dot.conf now looks like this 
 
 ```
 stream {
-    # DNS logging
+    # DNS logging.  This log file will show the DNS requests geting forwarded to UNBOUND
     log_format  dns   '$remote_addr [$time_local] $protocol "$dns_qname"';
-    access_log /var/log/nginx/dns-access.log dns;  # this log file will show your the requests geting forwarded to UNBOUND
+    access_log /var/log/nginx/dns-access.log dns; 
 
     # Include the NJS module.  Get the file from  https://github.com/TuxInvader/nginx-dns/tree/master/njs.d
     js_include /etc/nginx/njs.d/nginx_stream.js;
@@ -74,17 +76,17 @@ stream {
     # The $dns_qname variable can be populated by preread calls, and can be used for DNS routing
     js_set $dns_qname dns_get_qname;
 
-    # DNS upstream pool.
+    # DNS upstream pool.  We use the local PIHOLE instance at 127.0.0.1:53.  
+    # For bypassing PIHOLE and going directly to UNBOUD change the port to 5335
     upstream dns {
         zone dns 64k;
-        server 127.0.0.1:53;  # local PIHOLE instance.  For UNBOUND bypassing PIHOLE change the port to 5335
+        server 127.0.0.1:53;  
     }
 
-    # DNS over TLS (DoT) gateway
-    # Terminate DoT TCP, and proxy the traffic onto standard DNS
+    # DNS over TLS (DoT) gateway.  Proxy the traffic onto standard DNS
+    # Note that we're re-using the Let's Encrypt certificates
     server {
         listen 853 ssl;
-        # Note that we're re-using the Let's Encrypt certificates
         ssl_certificate /etc/letsencrypt/live/YourDNSServer/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/YourDNSServer/privkey.pem;
         js_preread dns_preread_dns_request;
@@ -130,7 +132,7 @@ stream {
   
 ```
 <br>
-And the final NGINX `/etc/nginx/conf.d/default.conf` file.  Note the comments explaining 302 redirects, TLS1.2, and H2 settings
+And the resulting NGINX `/etc/nginx/conf.d/default.conf` file is below.  Note the comments explaining few minor tweaks such as 302 redirects, TLS1.2, and H2 settings
 
 ```
         server {
@@ -177,8 +179,8 @@ And the final NGINX `/etc/nginx/conf.d/default.conf` file.  Note the comments ex
             return 302 https://YourDNSServer$request_uri;
         }
 
-        ############################################################################
-        ############# now let's do the same same for the port 443  #################
+        #########################################
+        # now let's do the same same for port 443  
         server {
             # note the http2 verb added here
             listen [::]:443 http2 ssl ipv6only=on;  # Note that we enable H2 support, because why not 
@@ -190,14 +192,13 @@ And the final NGINX `/etc/nginx/conf.d/default.conf` file.  Note the comments ex
             if ($host = YourDNSServerIPaddress) {
                 return 302 https://YourDNSServer$request_uri;
             }
-            # Here comes our Let's Encrypt TLS certificate.  These lines were automagically added by CERTBOT as I was running
-            # its script to generate the cert
+            # Here comes our Let's Encrypt TLS certificate.  These lines were automagically added by Let's Encrypt CERTBOT
             ssl_certificate /etc/letsencrypt/live/YourDNSServer/fullchain.pem; 
             ssl_certificate_key /etc/letsencrypt/live/YourDNSServer/privkey.pem;
             include /etc/letsencrypt/options-ssl-nginx.conf;
             ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; 
 
-            # enable TLSv1.2.  I am seeing it negotiating TLS 1.3 as well
+            # enable TLSv1.2.  I am seeing it negotiating TLS 1.3 when accessing PiHole's UI via the browser
             ssl_protocols TLSv1.2;
 
             root /var/www/html;
@@ -236,7 +237,7 @@ And the final NGINX `/etc/nginx/conf.d/default.conf` file.  Note the comments ex
 ##Testing DNS-over-TLS
 =======================
 
-First start with installing the enhanced DIG by running<br>
+Let us start with installing ``kdig`` (enhanced DIG) <br>
 `$ apt-get install knot-dnsutils`
 <br>
 Now we can test it
@@ -270,4 +271,4 @@ github.com.             0       IN      A       140.82.113.4
 ;; Time 2021-04-07 13:53:23 DST
 ;; From YourDNSServerIPaddress@853(TCP) in 18.6 ms
 ```
-Note how it uses port `853` and the details of TLS handshake.
+Note how it uses port `853` and ```-d``` switch provides us with the details of TLS handshake.
