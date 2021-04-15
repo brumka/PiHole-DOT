@@ -98,7 +98,7 @@ stream {
     }
 }
 ```
-
+<br>
 Added the call to load NJS modules and referenced the `dot.conf` at the bottom of my current NGINX configuration file `/etc/nginx/nginx.conf`
 
 
@@ -245,6 +245,7 @@ Let us start with installing `kdig` (enhanced DIG) <br>
 ```$ apt-get install knot-dnsutils```
 <br><br>
 Now we can test our DOT server by executing the following command
+<br>
 ```
 $ kdig -d @YourDNSServerIPaddress +tls-ca +tls-host=YourDNSServer www.github.com
 
