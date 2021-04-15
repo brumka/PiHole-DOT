@@ -20,6 +20,7 @@ After some research I decided to switch from the default lighttpd webserver to n
 Throughout this guide I am going to use `YourDNSServer` and, respectively, `YourDNSServerIPaddress` for the FQDN and the IP address of my DNS server
 
 
+
 ##Installing UNBOUND
 ======
 
@@ -42,6 +43,7 @@ github.com.             60      IN      A       140.82.114.3
 Note the port number 5335, it is defined in `/etc/unbound/unbound.conf`.   Note that your new shiny DNS server also supports DNSSEC!  
 
 
+
 ##Installing NGINX
 ===============
 
@@ -55,6 +57,7 @@ In order for it to work we have to install the NGINX NJS module.  First in order
 deb http://nginx.org/packages/mainline/ubuntu/ bionic nginx
 deb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx
 ```
+
 <br>and only then running the install 
 
 ```
@@ -96,6 +99,7 @@ stream {
 
 Added the call to load NJS modules and referenced the `dot.conf` at the bottom of my current NGINX configuration file `/etc/nginx/nginx.conf`
 
+
 ```	
 	user  nginx;
 	worker_processes  1;
@@ -104,8 +108,8 @@ Added the call to load NJS modules and referenced the `dot.conf` at the bottom o
 	pid        /var/run/nginx.pid;
 	
 	# This is where we load NJS modules 
-	load_module modules/ngx_http_js_module.so;
-	load_module modules/ngx_stream_js_module.so;
+	**load_module modules/ngx_http_js_module.so;**
+	**load_module modules/ngx_stream_js_module.so;**
 	
 	events {
 	    worker_connections  1024;
@@ -124,10 +128,10 @@ Added the call to load NJS modules and referenced the `dot.conf` at the bottom o
 	    sendfile        on;
 	    keepalive_timeout  65;
 	
-	    include /etc/nginx/conf.d/*.conf;
+	    **include /etc/nginx/conf.d/*.conf;**
 	}
   
-	include /etc/nginx/dns.d/*.conf;  # this is the place to include dot.conf.  Note it has to be outside of the http{} scope
+	**include /etc/nginx/dns.d/*.conf;**  # this is the place to include dot.conf.  Note it has to be outside of the http{} scope
   
 ```
 
