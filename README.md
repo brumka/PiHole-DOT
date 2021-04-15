@@ -63,7 +63,7 @@ deb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx
 ```
 $ sudo apt-get install nginx-module-njs
 ```
-
+<br>
 As a result, my `dot.conf` for NGINX DOT gateway now looks as following 
 
 ```
