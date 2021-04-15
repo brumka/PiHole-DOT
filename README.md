@@ -22,7 +22,7 @@ Throughout this guide I am going to use `YourDNSServer` and, respectively, `Your
 
 </br>
 ##Installing UNBOUND
-======
+====================
 
 There is an easy-to-follow [guide on pihole site](https://docs.pi-hole.net/guides/dns/unbound/).  Once UNBOUND is installed you can validate it is correctly resolving by running
 
@@ -44,8 +44,9 @@ Note the port number 5335, it is defined in `/etc/unbound/unbound.conf`.   Note 
 It is still worth noting that your upstream resolution to upstream root DNS servers is still unencrypted as of the moment of this writing none of the root servers supports DOT.
 
 </br>
+
 ##Installing NGINX
-===============
+==================
 
 The PiHole's [guide on installing NGINX](https://docs.pi-hole.net/guides/webserver/nginx/) is pretty straightforward as well.  Note, that for DOT we are going to install a  TLS certificate.  The obvious side benefit of having a cert would be ability to acces PiHole's UI via secured addess.  I used Les's Encrypt, which is quite simple to get installed using [these instructions](https://letsencrypt.org/getting-started/).
 
