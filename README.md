@@ -41,7 +41,7 @@ github.com.             60      IN      A       140.82.114.3
 ;; MSG SIZE  rcvd: 73
 ```
 Note the port number 5335, it is defined in `/etc/unbound/unbound.conf`.   Note that your new shiny DNS server also supports DNSSEC!  
-
+It is still worth noting that your upstream resolution to upstream root DNS servers is still unencrypted as of the moment of this writing none of the root servers supports DOT.
 
 </br>
 ##Installing NGINX
