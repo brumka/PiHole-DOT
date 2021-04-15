@@ -131,8 +131,7 @@ Added the call to load NJS modules and referenced the `dot.conf` at the bottom o
 	    include /etc/nginx/conf.d/*.conf;
 	}
   
-	**include /etc/nginx/dns.d/*.conf;**  # this is the place to include dot.conf.  Note it has to be outside of the http{} scope
-  
+	include /etc/nginx/dns.d/*.conf;  
 ```
 
 And the resulting NGINX  `/etc/nginx/conf.d/default.conf` file is below.  Note the comments explaining few minor tweaks such as 302 redirects, TLS1.2, and H2 settings
