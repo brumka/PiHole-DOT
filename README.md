@@ -94,7 +94,7 @@ stream {
 }
 ```
 
-Added the call to load NJS modules and referenced the dot.conf at the bottom of my current NGINX configuration file /etc/nginx/nginx.conf
+Added the call to load NJS modules and referenced the `dot.conf` at the bottom of my current NGINX configuration file `/etc/nginx/nginx.conf`
 
 ```	
 	user  nginx;
@@ -131,7 +131,7 @@ Added the call to load NJS modules and referenced the dot.conf at the bottom of 
   
 ```
 
-And the resulting NGINX  /etc/nginx/conf.d/default.conf file is below.  Note the comments explaining few minor tweaks such as 302 redirects, TLS1.2, and H2 settings
+And the resulting NGINX  `/etc/nginx/conf.d/default.conf` file is below.  Note the comments explaining few minor tweaks such as 302 redirects, TLS1.2, and H2 settings
 
 ```
         server {
@@ -236,8 +236,8 @@ And the resulting NGINX  /etc/nginx/conf.d/default.conf file is below.  Note the
 ##Testing DNS-over-TLS
 =======================
 
-Let us start with installing ``kdig`` (enhanced DIG) <br>
-`$ apt-get install knot-dnsutils`
+Let us start with installing `kdig` (enhanced DIG) <br>
+```$ apt-get install knot-dnsutils```
 <br><br>
 Now we can test our DOT server by executing the following command
 ```
@@ -270,4 +270,4 @@ github.com.             0       IN      A       140.82.113.4
 ;; Time 2021-04-07 13:53:23 DST
 ;; From YourDNSServerIPaddress@853(TCP) in 18.6 ms
 ```
-Note how it uses port `853` and ```-d``` switch provides us with the details of TLS handshake.
+Note how it uses port `853` and `-d` switch provides us with the details of TLS handshake.
