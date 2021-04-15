@@ -108,8 +108,8 @@ Added the call to load NJS modules and referenced the `dot.conf` at the bottom o
 	pid        /var/run/nginx.pid;
 	
 	# This is where we load NJS modules 
-	**load_module modules/ngx_http_js_module.so;**
-	**load_module modules/ngx_stream_js_module.so;**
+	<b>load_module modules/ngx_http_js_module.so;</b>
+	load_module modules/ngx_stream_js_module.so;
 	
 	events {
 	    worker_connections  1024;
@@ -128,7 +128,7 @@ Added the call to load NJS modules and referenced the `dot.conf` at the bottom o
 	    sendfile        on;
 	    keepalive_timeout  65;
 	
-	    **include /etc/nginx/conf.d/*.conf;**
+	    include /etc/nginx/conf.d/*.conf;
 	}
   
 	**include /etc/nginx/dns.d/*.conf;**  # this is the place to include dot.conf.  Note it has to be outside of the http{} scope
