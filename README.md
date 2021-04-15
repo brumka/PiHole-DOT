@@ -20,7 +20,7 @@ After some research I decided to switch from the default lighttpd webserver to n
 Throughout this guide I am going to use `YourDNSServer` and, respectively, `YourDNSServerIPaddress` for the FQDN and the IP address of my DNS server
 
 
-
+</br>
 ##Installing UNBOUND
 ======
 
@@ -43,7 +43,7 @@ github.com.             60      IN      A       140.82.114.3
 Note the port number 5335, it is defined in `/etc/unbound/unbound.conf`.   Note that your new shiny DNS server also supports DNSSEC!  
 
 
-
+</br>
 ##Installing NGINX
 ===============
 
