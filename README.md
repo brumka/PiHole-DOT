@@ -100,7 +100,7 @@ stream {
 ```
 <br>
 Added the call to load NJS modules and referenced the `dot.conf` at the bottom of my current NGINX configuration file `/etc/nginx/nginx.conf`
-
+<br>
 
 ```	
 	user  nginx;
@@ -135,9 +135,9 @@ Added the call to load NJS modules and referenced the `dot.conf` at the bottom o
   
 	include /etc/nginx/dns.d/*.conf;  
 ```
-
+<br>
 And the resulting NGINX  `/etc/nginx/conf.d/default.conf` file is below.  Note the comments explaining few minor tweaks such as 302 redirects, TLS1.2, and H2 settings
-
+<br>
 ```
         server {
             listen 80 default_server;
@@ -240,8 +240,9 @@ And the resulting NGINX  `/etc/nginx/conf.d/default.conf` file is below.  Note t
 <br><br>
 ##Testing DNS-over-TLS
 =======================
-
-Let us start with installing `kdig` (enhanced DIG) <br>
+<br>
+Let us start with installing `kdig` (enhanced DIG) 
+<br>
 ```$ apt-get install knot-dnsutils```
 <br><br>
 Now we can test our DOT server by executing the following command
