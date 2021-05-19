@@ -131,7 +131,8 @@ Added the call to load NJS modules and referenced the `dot.conf` at the bottom o
 	
 	    include /etc/nginx/conf.d/*.conf;
 	}
-  
+	
+  	# now let's add the dot.conf file
 	include /etc/nginx/dns.d/*.conf;  
 ```
 
