@@ -293,4 +293,4 @@ user@YourDNSServer:~$ sudo tail -f /var/log/nginx/dns-access.log
 
 Please, note that PI-Hole's UI is not going to list all the servers resolving through your DOT.  Instead, PIHOLE's dashboard and reports will show you all those DOT-resolved requests as performed by your DNS server itself.
 
-PLEASE, use [my github username AT gmail.com] for any corrections and/or comments
+PLEASE, use [my_github_username AT gmail.com] for any corrections and/or comments
