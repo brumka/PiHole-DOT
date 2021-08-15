@@ -280,3 +280,5 @@ github.com.             0       IN      A       140.82.113.4
 ;; From YourDNSServerIPaddress@853(TCP) in 18.6 ms
 ```
 Note how it uses port `853` and `-d` switch provides us with the details of TLS handshake.
+
+And, finally, you can also see the list of DOT resolutions by accessing your ```/var/log/nginx/dns-access.log``` (that is the log file defined in ```dot.conf``` above)
