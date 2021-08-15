@@ -288,4 +288,7 @@ user@YourDNSServer:~$ sudo tail -f /var/log/nginx/dns-access.log
 192.168.1.XX [15/Aug/2021:12:38:01 -0400] TCP "whoami.akamai.net"
 192.168.1.XX [15/Aug/2021:12:40:27 -0400] TCP "api16-normal-c-useast1a.tiktokv.com"
 192.168.1.XX [15/Aug/2021:12:41:16 -0400] TCP "v21-us-a.tiktokcdn.com"
-...```
+...
+```
+
+Please, note that PI-Hole's UI is not going to list all the servers resolving through your DOT.  Instead, PIHOLE's dashboard and reports will show you all those DOT-resolved requests as performed by your DNS server itself.
