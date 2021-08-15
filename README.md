@@ -282,3 +282,9 @@ github.com.             0       IN      A       140.82.113.4
 Note how it uses port `853` and `-d` switch provides us with the details of TLS handshake.
 
 And, finally, you can also see the list of DOT resolutions by accessing your ```/var/log/nginx/dns-access.log``` (that is the log file defined in ```dot.conf``` above)
+```user@YourDNSServer:~$ sudo tail -f /var/log/nginx/dns-access.log
+192.168.1.XX [15/Aug/2021:12:36:08 -0400] TCP "mobile-collector.newrelic.com"
+192.168.1.XX [15/Aug/2021:12:38:01 -0400] TCP "whoami.akamai.net"
+192.168.1.XX [15/Aug/2021:12:40:27 -0400] TCP "api16-normal-c-useast1a.tiktokv.com"
+192.168.1.XX [15/Aug/2021:12:41:16 -0400] TCP "v21-us-a.tiktokcdn.com"
+...```
