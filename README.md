@@ -41,6 +41,7 @@ github.com.             60      IN      A       140.82.114.3
 ;; WHEN: Wed Apr 07 12:44:59 DST 2021
 ;; MSG SIZE  rcvd: 73
 ```
+
 Note the port number 5335, it is defined in `/etc/unbound/unbound.conf`.   Note that your new shiny DNS server also supports DNSSEC!  
 It is still worth noting that your upstream resolution to upstream root DNS servers is still unencrypted as of the moment of this writing none of the root servers supports DOT.
 
@@ -65,6 +66,7 @@ deb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx
 ```
 $ sudo apt-get install nginx-module-njs
 ```
+
 
 As a result, my `dot.conf` for NGINX DOT gateway now looks as following 
 
@@ -98,6 +100,7 @@ stream {
     }
 }
 ```
+
 
 Added the call to load NJS modules and referenced the `dot.conf` at the bottom of my current NGINX configuration file `/etc/nginx/nginx.conf`
 
@@ -138,7 +141,6 @@ Added the call to load NJS modules and referenced the `dot.conf` at the bottom o
 
 
 And the resulting NGINX  `/etc/nginx/conf.d/default.conf` file is below.  Note the comments explaining few minor tweaks such as 302 redirects, TLS1.2, and H2 settings
-
 
 ```
         server {
@@ -282,9 +284,11 @@ e4036.dscb.akamaiedge.net.      0       IN      A       23.59.103.244
 ;; Time 2021-08-15 20:24:14 EDT
 ;; From @YourDNSServerIPaddress@853(TCP) in 39.1 ms
 ```
+
 Note how it uses port `853` and `-d` switch provides us with the details of TLS handshake.
 
 And, finally, you can also see the list of DOT resolutions by accessing your ```/var/log/nginx/dns-access.log``` (that is the log file defined in ```dot.conf``` above)
+
 ```
 user@YourDNSServer:~$ sudo tail -f /var/log/nginx/dns-access.log
 192.168.1.XX [15/Aug/2021:12:36:08 -0400] TCP "mobile-collector.newrelic.com"
@@ -294,6 +298,7 @@ user@YourDNSServer:~$ sudo tail -f /var/log/nginx/dns-access.log
 ...
 ```
 
-Please, note that PI-Hole's UI is not going to list all the servers resolving through your DOT.  Instead, PIHOLE's dashboard and reports will show you all those DOT-resolved requests as performed by your DNS server itself.
+
+Note that PI-Hole's UI is not going to list all the servers resolving through your DOT.  Instead, PIHOLE's dashboard and reports will show you all those DOT-resolved requests as performed by your DNS server itself.
 
 PLEASE, use [my_github_username AT gmail.com] for any corrections and/or comments
