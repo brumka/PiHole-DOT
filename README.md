@@ -247,7 +247,7 @@ Let us start with installing `kdig` (enhanced DIG)
 
 ```$ apt-get install knot-dnsutils```
 <br><br>
-Now we can test our DOT server by executing the following command
+Now we can test our DOT server by executing the following command (P.S. note the ```+dnssec``` flag!)
 <br>
 ```
 $ kdig -d @YourDNSServerIPaddress  +tls-ca +tls-host=YourDNSServer +dnssec www.whitehouse.gov
