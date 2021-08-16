@@ -250,34 +250,37 @@ Let us start with installing `kdig` (enhanced DIG)
 Now we can test our DOT server by executing the following command
 <br>
 ```
-$ kdig -d @YourDNSServerIPaddress +tls-ca +tls-host=YourDNSServer www.github.com
-
-;; DEBUG: Querying for owner(www.github.com.), class(1), type(1), server(YourDNSServerIPaddress), port(853), protocol(TCP)
+$ kdig -d @YourDNSServerIPaddress  +tls-ca +tls-host=YourDNSServer +dnssec www.whitehouse.gov
+;; DEBUG: Querying for owner(www.whitehouse.gov.), class(1), type(1), server(YourDNSServer), port(853), protocol(TCP)
 ;; DEBUG: TLS, imported 129 system certificates
 ;; DEBUG: TLS, received certificate hierarchy:
 ;; DEBUG:  #1, CN=YourDNSServer
-;; DEBUG:      SHA-256 PIN: WV+yn9eTQPtc6EZ8hdOE3VUlBGVt2G2ehX9kEVcrF+E=
+;; DEBUG:      SHA-256 PIN: p3oBivTcbQFriXHOAZC3isTsBc3adON/gKYEywQcJqA=
 ;; DEBUG:  #2, C=US,O=Let's Encrypt,CN=R3
 ;; DEBUG:      SHA-256 PIN: jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=
+;; DEBUG:  #3, C=US,O=Internet Security Research Group,CN=ISRG Root X1
+;; DEBUG:      SHA-256 PIN: C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=
 ;; DEBUG: TLS, skipping certificate PIN check
 ;; DEBUG: TLS, The certificate is trusted.
 ;; TLS session (TLS1.2)-(ECDHE-SECP256R1)-(RSA-SHA256)-(AES-256-GCM)
-;; ->>HEADER<<- opcode: QUERY; status: NOERROR; id: 58
-;; Flags: qr rd ra; QUERY: 1; ANSWER: 2; AUTHORITY: 0; ADDITIONAL: 1
+;; ->>HEADER<<- opcode: QUERY; status: NOERROR; id: 13706
+;; Flags: qr rd ra; QUERY: 1; ANSWER: 4; AUTHORITY: 0; ADDITIONAL: 1
 
 ;; EDNS PSEUDOSECTION:
-;; Version: 0; flags: ; UDP size: 1472 B; ext-rcode: NOERROR
+;; Version: 0; flags: do; UDP size: 1472 B; ext-rcode: NOERROR
 
 ;; QUESTION SECTION:
-;; www.github.com.              IN      A
+;; www.whitehouse.gov.          IN      A
 
 ;; ANSWER SECTION:
-www.github.com.         0       IN      CNAME   github.com.
-github.com.             0       IN      A       140.82.113.4
+www.whitehouse.gov.     191     IN      CNAME   wildcard.whitehouse.gov.edgekey.net.
+www.whitehouse.gov.     191     IN      RRSIG   CNAME 7 3 300 20210818033924 20210815023924 29448 whitehouse.gov. GenVnmmY/2EnUU1sSRJEl2yj4inwcAstHBw8PH7dzeGHaS9ZhmjkNiZTERc088X8O0Z50c1JDr3LVEr/10rk1cbJCgaQUx2cXb19HOQlrOP06zP7uTDLSAgDQEwQxuuXVNDDDwPauMnUr+OGGL7a/Btyakb1eNGjZUTQQnM1BhM=
+wildcard.whitehouse.gov.edgekey.net. 791        IN      CNAME   e4036.dscb.akamaiedge.net.
+e4036.dscb.akamaiedge.net.      0       IN      A       23.59.103.244
 
-;; Received 73 B
-;; Time 2021-04-07 13:53:23 DST
-;; From YourDNSServerIPaddress@853(TCP) in 18.6 ms
+;; Received 322 B
+;; Time 2021-08-15 20:24:14 EDT
+;; From @YourDNSServerIPaddress@853(TCP) in 39.1 ms
 ```
 Note how it uses port `853` and `-d` switch provides us with the details of TLS handshake.
 
