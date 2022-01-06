@@ -68,7 +68,7 @@ $ sudo apt-get install nginx-module-njs
 ```
 
 
-As a result, my `dot.conf` for NGINX DOT gateway now looks as following 
+As a result, my `/etc/nginx/dns.d/dot.conf` for NGINX DOT gateway now looks as following 
 
 ```
 stream {
@@ -102,7 +102,7 @@ stream {
 ```
 
 
-Added the call to load NJS modules and referenced the `dot.conf` at the bottom of my current NGINX configuration file `/etc/nginx/nginx.conf`
+Added the call to load NJS modules and referenced the `/etc/nginx/dns.d/dot.conf` at the bottom of my current NGINX configuration file `/etc/nginx/nginx.conf`
 
 ```	
 	user  nginx;
@@ -136,7 +136,7 @@ Added the call to load NJS modules and referenced the `dot.conf` at the bottom o
 	}
 	
   	# now let's add the dot.conf file
-	include /etc/nginx/dns.d/*.conf;  
+	include /etc/nginx/dns.d/dot.conf;  
 ```
 
 
