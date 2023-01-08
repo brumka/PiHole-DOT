@@ -77,7 +77,7 @@ stream {
     access_log /var/log/nginx/dns-access.log dns; 
 
     # Include the NJS module.  Get the file from  https://github.com/TuxInvader/nginx-dns/tree/master/njs.d
-    js_include /etc/nginx/njs.d/nginx_stream.js;
+    js_import /etc/nginx/njs.d/nginx_stream.js;
 
     # The $dns_qname variable can be populated by preread calls, and can be used for DNS routing
     js_set $dns_qname dns_get_qname;
