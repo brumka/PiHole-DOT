@@ -77,10 +77,10 @@ stream {
     access_log /var/log/nginx/dns-access.log dns; 
 
     # Include the NJS module.  Get the file from  https://github.com/TuxInvader/nginx-dns/tree/master/njs.d
-    js_import /etc/nginx/njs.d/nginx_stream.js;
+    js_import /etc/nginx/njs.d/dns/dns.js;
 
     # The $dns_qname variable can be populated by preread calls, and can be used for DNS routing
-    js_set $dns_qname dns_get_qname;
+    js_set $dns_qname dns.get_qname;
 
     # DNS upstream pool.  We use the local PIHOLE instance at 127.0.0.1:53.  
     # For bypassing PIHOLE and going directly to UNBOUD change the port to 5335
@@ -95,7 +95,7 @@ stream {
         listen 853 ssl;
         ssl_certificate /etc/letsencrypt/live/YourDNSServer/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/YourDNSServer/privkey.pem;
-        js_preread dns_preread_dns_request;
+        js_preread dns.preread_dns_request;
         proxy_pass dns;
     }
 }
