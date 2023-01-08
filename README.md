@@ -163,7 +163,7 @@ And the resulting NGINX  `/etc/nginx/conf.d/default.conf` file is below.  Note t
             location ~ \.php$ {
                 include fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
-                fastcgi_pass unix:/run/php/php7.2-fpm.sock;  # Ensure you use the correct PHP-FPM version here
+                fastcgi_pass unix:/run/php/php7.4-fpm.sock;  # Ensure you use the correct PHP-FPM version here
                 fastcgi_param FQDN true;
             }
 
@@ -223,7 +223,7 @@ And the resulting NGINX  `/etc/nginx/conf.d/default.conf` file is below.  Note t
             location ~ \.php$ {
                 include fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;
-                fastcgi_pass unix:/run/php/php7.2-fpm.sock;  # again, ensure you have the correct PHP-FPM version
+                fastcgi_pass unix:/run/php/php7.4-fpm.sock;  # again, ensure you have the correct PHP-FPM version
                 fastcgi_param FQDN true;
             }
 
