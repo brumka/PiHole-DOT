@@ -191,8 +191,9 @@ And the resulting NGINX  `/etc/nginx/conf.d/default.conf` file is below.  Note t
         # now let's do the same same for port 443  
         server {
             # note the http2 verb added here
-            listen [::]:443 http2 ssl ipv6only=on;  # Note that we enable H2 support, because why not 
-            listen 443 ssl http2 default_server; 
+            listen [::]:443 ssl ipv6only=on;  # Note that we enable H2 support, because why not 
+            listen 443 ssl default_server;
+	    http2 on;
 
             server_name YourDNSServer;
             
@@ -206,8 +207,8 @@ And the resulting NGINX  `/etc/nginx/conf.d/default.conf` file is below.  Note t
             include /etc/letsencrypt/options-ssl-nginx.conf;
             ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; 
 
-            # enable TLSv1.2.  I am seeing it negotiating TLS 1.3 when accessing PiHole's UI via the browser
-            ssl_protocols TLSv1.2;
+            # enable TLSv1.2 and TLSv1.3
+            ssl_protocols TLSv1.2 TLSv1.3;
 
             root /var/www/html;
 
